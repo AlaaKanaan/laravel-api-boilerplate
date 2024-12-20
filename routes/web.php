@@ -7,10 +7,8 @@ Route::get('/', function () {
 });
 
 Route::prefix('v1')->group(function () {
-    require __DIR__ . '/auth.php';
-    Route::middleware('auth:sanctum')->group(function () {
-        require __DIR__ . '/API/V1/app.php';
+    require __DIR__ . '/Web/V1/auth.php';
+    Route::middleware('auth')->group(function () {
+        require __DIR__ . '/App/V1/main.php';
     });
 });
-
-require __DIR__ . '/auth.php';
