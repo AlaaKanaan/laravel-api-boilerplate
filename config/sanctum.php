@@ -48,6 +48,8 @@ return [
     */
 
     'expiration' => null,
+    'api_ac_expiration' => 60,              // One hour
+    'api_rt_expiration' => 7 * 24 * 60,  // 7 Days
 
     /*
     |--------------------------------------------------------------------------

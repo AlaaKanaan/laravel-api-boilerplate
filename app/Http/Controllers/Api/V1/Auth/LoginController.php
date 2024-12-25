@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
+use App\Enums\TokenAbility;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,14 +19,13 @@ class LoginController extends Controller
         // Authenticate the user
         $request->authenticate();
 
-        // Generate an API token (if using Sanctum)
-        $token = $request->user()->createToken('api_token')->plainTextToken;
+        $accessToken = $request->user()->createToken('access_token', [TokenAbility::ACCESS_API->value], Carbon::now()->addMinutes(config('sanctum.api_ac_expiration')));
+        $refreshToken = $request->user()->createToken('refresh_token', [TokenAbility::ISSUE_ACCESS_TOKEN->value], Carbon::now()->addMinutes(config('sanctum.api_rt_expiration')));
 
         // Return the response
         return response()->json([
-            'message' => 'Login successful',
-            'user' => $request->user(),
-            'token' => $token,
+            'token' => $accessToken->plainTextToken,
+            'refresh_token' => $refreshToken->plainTextToken,
         ]);
     }
 }
