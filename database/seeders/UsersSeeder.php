@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\UserTypes;
 use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
@@ -17,14 +16,14 @@ class UsersSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             'password' => bcrypt('password'),
-            'role' => User::ADMIN,
+            'role' => UserTypes::ADMIN,
         ]);
 
         User::factory()->create([
             'name' => 'Regular User',
             'email' => 'user@example.com',
             'password' => bcrypt('password'),
-            'role' => User::USER,
+            'role' => UserTypes::USER,
         ]);
     }
 }
