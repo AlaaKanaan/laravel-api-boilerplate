@@ -30,7 +30,12 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->dontReport(
+            \LaravelJsonApi\Core\Exceptions\JsonApiException::class,
+        );
+        $exceptions->render(
+            \LaravelJsonApi\Exceptions\ExceptionParser::renderer(),
+        );
     })
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('sanctum:prune-expired --hours=24')->daily();
