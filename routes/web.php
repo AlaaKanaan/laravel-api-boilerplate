@@ -7,8 +7,8 @@ Route::get('/', function () {
 });
 
 Route::prefix('v1')->group(function () {
-    require __DIR__ . '/Web/V1/auth.php';
+    require __DIR__ . '/Web/auth.php';
     Route::middleware('auth')->group(function () {
-        require __DIR__ . '/App/V1/main.php';
+        require __DIR__ . '/Web/main.php';
     });
 });

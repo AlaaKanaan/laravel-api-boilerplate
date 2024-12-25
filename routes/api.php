@@ -10,6 +10,6 @@ Route::prefix('v1')->group(function () {
         require __DIR__ . '/API/V1/auth.php';
     });
     Route::middleware(['auth:sanctum', 'abilities:' . TokenAbility::ACCESS_API->value])->group(function () {
-        require __DIR__ . '/App/V1/main.php';
+        require __DIR__ . '/API/V1/main.php';
     });
 });
