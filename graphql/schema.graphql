@@ -1,2 +1,0 @@
-#import ./types/User.graphql
-#import ./queries/Me.graphql
