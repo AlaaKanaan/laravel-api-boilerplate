@@ -19,6 +19,18 @@ Out-of-the-box, it includes **REST API authentication** powered by **Laravel San
 - **Environment Configuration**: `.env` file support for secure and easy configuration.
 - **Modular Codebase**: Clean and modular structure to easily extend and maintain.
 
+
+## Tech Stack
+
+Nothing makes it into Ignite unless it's been proven on projects that Infinite Red works on. Ignite apps include the following rock-solid technical decisions out of the box:
+
+| Library                          | Category             | Version | Description                                    |
+|----------------------------------|----------------------|---------|------------------------------------------------|
+| Laravel                          | Framework            | v0.74   | The best cross-platform mobile framework       |
+| JSONAPI                          | Package              | v18     | The most popular UI framework in the world     |
+| Laravel Media Library            | Package              | v5      | Static typechecking                            |
+Ignite also comes with a [component library](./docs/boilerplate/app/components/Components.md) that is tuned for custom designs, theming support, testing, custom fonts, generators, and much, much more.
+
 ## Installation
 
 1. Clone the repository:
