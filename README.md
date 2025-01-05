@@ -22,14 +22,14 @@ Out-of-the-box, it includes **REST API authentication** powered by **Laravel San
 
 ## Tech Stack
 
-Nothing makes it into Ignite unless it's been proven on projects that Infinite Red works on. Ignite apps include the following rock-solid technical decisions out of the box:
+Nothing is included in this framework unless it has been thoroughly tested and proven on real-world projects. Applications built with this framework come with well-considered, reliable technical decisions included right out of the box:
 
-| Library                          | Category             | Version | Description                                    |
-|----------------------------------|----------------------|---------|------------------------------------------------|
-| Laravel                          | Framework            | v0.74   | The best cross-platform mobile framework       |
-| JSONAPI                          | Package              | v18     | The most popular UI framework in the world     |
-| Laravel Media Library            | Package              | v5      | Static typechecking                            |
-Ignite also comes with a [component library](./docs/boilerplate/app/components/Components.md) that is tuned for custom designs, theming support, testing, custom fonts, generators, and much, much more.
+| Library               | Category  | Version  | Description                                                    |
+|-----------------------|-----------|----------|----------------------------------------------------------------|
+| Laravel               | Framework | v11.36.1 | The best cross-platform framework                              |
+| JSONAPI               | Package   | v5.0.2   | Feature-rich JSON:API compliant APIs for Laravel applications. |
+| Laravel Media Library | Package   | v11.11   | package can associate all sorts of files with Eloquent models  |
+
 
 ## Installation
 
