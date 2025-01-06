@@ -113,4 +113,8 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+
+    // Catch-all email for debugging
+    'to' => env('MAIL_DEBUG_TO', null),
+
 ];

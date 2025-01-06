@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum TokenAbility: string
 {
-    case ISSUE_ACCESS_TOKEN = 'issue-access-token';
-    case ACCESS_API = 'access-api';
+    case REFRESH_TOKEN = 'refresh_token';
+    case ACCESS_API = 'access_token';
+    case VERIFY_TOKEN = 'verify_token';
 }

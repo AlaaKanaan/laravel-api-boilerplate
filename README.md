@@ -24,11 +24,12 @@ Out-of-the-box, it includes **REST API authentication** powered by **Laravel San
 
 Nothing is included in this framework unless it has been thoroughly tested and proven on real-world projects. Applications built with this framework come with well-considered, reliable technical decisions included right out of the box:
 
-| Library               | Category  | Version  | Description                                                    |
-|-----------------------|-----------|----------|----------------------------------------------------------------|
-| Laravel               | Framework | v11.36.1 | The best cross-platform framework                              |
-| JSONAPI               | Package   | v5.0.2   | Feature-rich JSON:API compliant APIs for Laravel applications. |
-| Laravel Media Library | Package   | v11.11   | package can associate all sorts of files with Eloquent models  |
+| Library                  | Category  | Version  | Description                                                    |
+|--------------------------|-----------|----------|----------------------------------------------------------------|
+| Laravel                  | Framework | v11.36.1 | The best cross-platform framework                              |
+| JSONAPI                  | Package   | v5.0.2   | Feature-rich JSON:API compliant APIs for Laravel applications. |
+| Laravel Media Library    | Package   | v11.11   | package can associate all sorts of files with Eloquent models  |
+| OTP Generator & Verifier | Package   | v8.0     | tool to create OTP with an expiry without using any Database   |
 
 
 ## Installation
