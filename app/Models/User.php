@@ -4,17 +4,17 @@ namespace App\Models;
 
 namespace App\Models;
 
+use App\Enums\CacheKeys;
 use App\Enums\TokenAbility;
 use App\Enums\UserTypes;
-use App\Notifications\VerifyEmailOtp;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -55,23 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isAdmin(): bool
     {
-        return $this->role === UserTypes::ADMIN;
-    }
-
-
-    public function sendEmailVerificationNotification(): void
-    {
-        if (config('app.must_confirm_email')) {
-            $this->notify(new VerifyEmailOtp());
-        }
-    }
-
-    public function hasVerifiedEmail(): bool
-    {
-        if (config('app.must_confirm_email')) {
-            return parent::hasVerifiedEmail();
-        }
-        return true;
+        return $this['role'] === UserTypes::ADMIN;
     }
 
     public function getAuthTokens(): array
@@ -95,20 +79,18 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function getVerifyToken(): array
+    public function getOTPIdentifierKey(): string
     {
+        return CacheKeys::OTP_KEY->value . $this['id'] . request()->ip();
+    }
 
-        // Identify and delete the old refresh token
-        $this->tokens()->where('name', TokenAbility::VERIFY_TOKEN->value)->delete();
-        // Create access and refresh tokens
-        $verify_token = $this->createToken(
-            TokenAbility::VERIFY_TOKEN->value,
-            [TokenAbility::VERIFY_TOKEN->value],
-            Carbon::now()->addMinutes(config('sanctum.api_rt_expiration'))
-        );
+    public function getOTPIdentifierValue()
+    {
+        return Cache::get($this->getOTPIdentifierKey());
+    }
 
-        return [
-            'verify_token' => $verify_token->plainTextToken
-        ];
+    public function deleteOTPIdentifierValue(): bool
+    {
+        return Cache::delete($this->getOTPIdentifierKey());
     }
 }

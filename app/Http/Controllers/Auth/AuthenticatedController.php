@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\CacheKeys;
 use App\Enums\TokenAbility;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Notifications\SendOtp;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 class AuthenticatedController extends Controller
@@ -19,28 +22,13 @@ class AuthenticatedController extends Controller
      */
     public function store(LoginRequest $request): Response|JsonResponse
     {
-        $request->authenticate();
-
-        $user = request()->user();
-
-        // Check if the user's email is verified
-        if (!$user->hasVerifiedEmail()) {
-            // Send email verification notification
-            $user->sendEmailVerificationNotification();
-            $data = $user->getVerifyToken();
-            // Log out the user
-            Auth::logout();
-            // Return a success response
-            return $this->createdResponse(
-                $data ?? null,
-                __('auth.email_not_verified')
-            );
-        }
+        $user = $request->validateAuthentication();
 
         if ($request->is('api/*')) {
-            $data = $request->user()->getAuthTokens();
+            $data = $user->getAuthTokens();
             return $this->successResponse($data, __('auth.login_success'));
         } else {
+            $request->authenticate();
             $request->session()->regenerate();
             return response()->noContent();
         }
@@ -56,7 +44,7 @@ class AuthenticatedController extends Controller
             $request->user()->currentAccessToken()->delete();
             return $this->successResponse(null, __('auth.logout_success'));
         } else {
-            Auth::guard('web')->logout();
+            Auth::logout();
 
             $request->session()->invalidate();
 
@@ -84,5 +72,4 @@ class AuthenticatedController extends Controller
 
         return $this->successResponse($data, __('auth.refresh_success'));
     }
-
 }

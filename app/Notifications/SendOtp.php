@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Cache;
 
-class VerifyEmailOtp extends Notification
+class SendOtp extends Notification
 {
     use Queueable;
 
@@ -28,7 +28,7 @@ class VerifyEmailOtp extends Notification
     public function toMail($notifiable): MailMessage
     {
         // Store the OTP in cache for 10 minutes
-        Cache::put(CacheKeys::OTP_KEY->value . $notifiable->id, $this->otp, now()->addMinutes(10));
+        Cache::put($notifiable->getOTPIdentifierKey(), $this->otp, now()->addMinutes(10));
 
         return (new MailMessage)
             ->subject(__('notifications.email_verification_subject'))

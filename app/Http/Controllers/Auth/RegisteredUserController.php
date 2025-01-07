@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Enums\TokenAbility;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\SendOtp;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -21,9 +22,9 @@ class RegisteredUserController extends Controller
      * Handle an incoming registration request.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return JsonResponse|Response
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): Response|JsonResponse
     {
         // Validate registration fields
         $validated = $request->validate([
@@ -33,7 +34,7 @@ class RegisteredUserController extends Controller
         ]);
 
         // Create the user
-        $user = User::create([
+        $user = User::query()->create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
@@ -42,21 +43,21 @@ class RegisteredUserController extends Controller
         // Fire the Registered event (optional, for hooks)
         event(new Registered($user));
 
-        if ($request->is('api/*')) {
-            if (config('app.must_confirm_email')) {
-                $data = $user->getVerifyToken();
-            } else {
-                $data = $user->getAuthTokens();
-            }
-        } else {
-            // Log the user in
-            Auth::login($user);
-        }
 
-        // Return a success response
-        return $this->createdResponse(
-            $data ?? null,
-            __('auth.registration_success')
-        );
+        if (config('app.enable_otp')) {
+            $user->notify(new SendOtp());
+            $data = ['otp_required' => true];
+            throw new HttpResponseException($this->successResponse($data, __('auth.otp_sent')));
+        } else {
+            if ($request->is('api/*')) {
+                $data = $request->user()->getAuthTokens();
+                return $this->successResponse($data, __('auth.registration_success'));
+            } else {
+                // Log the user in
+                Auth::login($user);
+                $request->session()->regenerate();
+                return response()->noContent();
+            }
+        }
     }
 }

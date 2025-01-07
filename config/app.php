@@ -123,6 +123,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    'must_confirm_email' => true,
-
+    'enable_otp' => false,
 ];
