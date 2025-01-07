@@ -10,5 +10,5 @@ Route::prefix('auth')->group(function () {
     require __DIR__ . '/auth.php';
 });
 Route::middleware('auth')->group(function () {
-    require __DIR__ . '/Web/main.php';
+    require __DIR__ . '/API/V1/main.php';
 });

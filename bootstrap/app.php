@@ -8,6 +8,8 @@ use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
+use LaravelJsonApi\Core\Exceptions\JsonApiException;
+use LaravelJsonApi\Exceptions\ExceptionParser;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -31,10 +33,10 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->dontReport(
-            \LaravelJsonApi\Core\Exceptions\JsonApiException::class,
+            JsonApiException::class,
         );
         $exceptions->render(
-            \LaravelJsonApi\Exceptions\ExceptionParser::renderer(),
+            ExceptionParser::renderer(),
         );
     })
     ->withSchedule(function (Schedule $schedule) {

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Support\Responsable;
+use LaravelJsonApi\Core\Responses\DataResponse;
 use LaravelJsonApi\Laravel\Http\Controllers\Actions;
+use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
-class UserController extends Controller
+class UserController extends JsonApiController
 {
 
     use Actions\FetchMany;
@@ -19,4 +21,14 @@ class UserController extends Controller
     use Actions\AttachRelationship;
     use Actions\DetachRelationship;
 
+
+    /**
+     * get authenticated user
+     *
+     * @return Responsable
+     */
+    public function me(): Responsable
+    {
+        return new DataResponse(request()->user());
+    }
 }
