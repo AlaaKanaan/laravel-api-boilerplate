@@ -26,7 +26,15 @@ class AppServiceProvider extends ServiceProvider
             Mail::alwaysTo(config('mail.to'));
         }
 
-        $locale = request()->header('Accept-Language', 'en'); // Default to English
-        App::setLocale($locale);
+        // Parse the Accept-Language header
+        $acceptLanguage = request()->header('Accept-Language', 'en'); // Default to English
+        $locale = strtok($acceptLanguage, ','); // Extract the first language (e.g., 'en_US')
+
+        // Validate and set the locale
+        if (preg_match('/^[a-zA-Z_]+$/', $locale)) {
+            App::setLocale($locale);
+        } else {
+            App::setLocale('en'); // Fallback to 'en' if the locale is invalid
+        }
     }
 }
