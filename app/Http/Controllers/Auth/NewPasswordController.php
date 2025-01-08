@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\PasswordReset;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
@@ -15,39 +14,44 @@ use Illuminate\Validation\ValidationException;
 class NewPasswordController extends Controller
 {
     /**
-     * Handle an incoming new password request.
+     * Handles the password reset process for a user.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * Validates the provided request data including OTP, email, and password.
+     * It checks the cached OTP, updates the user's password if validation succeeds,
+     * and removes the OTP identifier value after completion.
+     *
+     * @param Request $request The incoming HTTP request object containing validation inputs.
+     *
+     * @return JsonResponse A successful JSON response indicating password change.
+     * @throws ValidationException If the provided OTP is invalid or expired.
+     *
      */
     public function store(Request $request): JsonResponse
     {
         $request->validate([
-            'token' => ['required'],
+            'otp' => ['required'],
             'email' => ['required', 'email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // Here we will attempt to reset the user's password. If it is successful we
-        // will update the password on an actual user model and persist it to the
-        // database. Otherwise we will parse the error and return the response.
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user) use ($request) {
-                $user->forceFill([
-                    'password' => Hash::make($request->string('password')),
-                    'remember_token' => Str::random(60),
-                ])->save();
+        $user = User::query()->where('email', $request->input('email'))->first();
+        // Retrieve OTP from the cache
+        $cachedOtp = $user->getOTPIdentifierValue();
 
-                event(new PasswordReset($user));
-            }
-        );
-
-        if ($status != Password::PASSWORD_RESET) {
+        // Validate the OTP
+        if (!$cachedOtp || $cachedOtp !== $request->input('otp')) {
             throw ValidationException::withMessages([
-                'email' => [__($status)],
+                'otp' => __('auth.invalid_or_expired_otp'),
             ]);
         }
 
-        return response()->json(['status' => __($status)]);
+        $user->forceFill([
+            'password' => Hash::make($request->string('password')),
+            'remember_token' => Str::random(60),
+        ])->save();
+
+        $user->deleteOTPIdentifierValue();
+
+       return $this->successResponse([], __('auth.password_changed'));
     }
 }

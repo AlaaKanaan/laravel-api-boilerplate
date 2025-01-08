@@ -28,9 +28,5 @@ class AppServiceProvider extends ServiceProvider
 
         $locale = request()->header('Accept-Language', 'en'); // Default to English
         App::setLocale($locale);
-
-        ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
-            return config('app.frontend_url') . "/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
-        });
     }
 }

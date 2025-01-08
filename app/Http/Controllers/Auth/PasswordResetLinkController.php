@@ -3,17 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Notifications\SendOtp;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\ValidationException;
 
 class PasswordResetLinkController extends Controller
 {
     /**
-     * Handle an incoming password reset link request.
+     * Handle the request to store user information and send OTP notification.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @param Request $request The incoming HTTP request containing the user email.
+     *
+     * @return JsonResponse The JSON response indicating the success of the operation.
+     *
      */
     public function store(Request $request): JsonResponse
     {
@@ -21,19 +24,10 @@ class PasswordResetLinkController extends Controller
             'email' => ['required', 'email'],
         ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
 
-        if ($status != Password::RESET_LINK_SENT) {
-            throw ValidationException::withMessages([
-                'email' => [__($status)],
-            ]);
-        }
+        $user = User::query()->where('email', $request->input('email'))->first();
+        $user->notify(new SendOtp());
 
-        return response()->json(['status' => __($status)]);
+        return $this->successResponse([], __('auth.otp_sent'));
     }
 }
