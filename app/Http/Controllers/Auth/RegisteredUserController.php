@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\UserTypes;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\SendOtp;
@@ -38,6 +39,7 @@ class RegisteredUserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'authority' => [UserTypes::USER],
         ]);
 
         // Fire the Registered event (optional, for hooks)
@@ -50,7 +52,7 @@ class RegisteredUserController extends Controller
             throw new HttpResponseException($this->successResponse($data, __('auth.otp_sent')));
         } else {
             if ($request->is('api/*')) {
-                $data = $request->user()->getAuthTokens();
+                $data = $user->getAuthTokens();
                 return $this->successResponse($data, __('auth.registration_success'));
             } else {
                 // Log the user in
