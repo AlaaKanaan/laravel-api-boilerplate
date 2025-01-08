@@ -123,5 +123,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    'enable_otp' => true,
+    'enable_otp' => false,
 ];
