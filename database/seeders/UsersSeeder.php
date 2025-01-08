@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\UserTypes;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
@@ -12,18 +13,18 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        User::query()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             'password' => bcrypt('password'),
-            'role' => UserTypes::ADMIN,
+            'authority' => [UserTypes::ADMIN],
         ]);
 
-        User::factory()->create([
+        User::query()->create([
             'name' => 'Regular User',
             'email' => 'user@example.com',
             'password' => bcrypt('password'),
-            'role' => UserTypes::USER,
+            'authority' => [UserTypes::USER],
         ]);
     }
 }

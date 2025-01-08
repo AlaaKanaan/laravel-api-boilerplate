@@ -27,7 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'authority',
     ];
 
     /**
@@ -38,6 +38,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+
+    protected $casts = [
+        'authority' => 'array'
     ];
 
     /**
@@ -55,7 +60,7 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this['role'] === UserTypes::ADMIN;
+        return in_array(UserTypes::ADMIN, $this['authority']);
     }
 
     public function getAuthTokens(): array
