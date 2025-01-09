@@ -49,7 +49,7 @@ Out-of-the-box, it includes **REST API authentication** powered by **Laravel San
 
 5. Configure your database in the `.env` file and run migrations:
    ```bash
-   php artisan migrate
+   php artisan migrate --seed
    ```
 
 6. Serve the application:
