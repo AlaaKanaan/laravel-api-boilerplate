@@ -1,6 +1,6 @@
-# Laravel Boilerplate API
+# Laravel API Boilerplate
 
-Laravel Boilerplate API is a boilerplate designed for developers who want to kickstart projects using Laravel as a backend API. Whether you're building a Single Page Application (SPA), a mobile app, or integrating with third-party systems, this boilerplate provides a robust and scalable foundation.
+Laravel API Boilerplate designed for developers who want to kickstart projects using Laravel as a backend API. Whether you're building a Single Page Application (SPA), a mobile app, or integrating with third-party systems, this boilerplate provides a robust and scalable foundation.
 
 Out-of-the-box, it includes **REST API authentication** powered by **Laravel Sanctum**, MySQL integration, and best practices for API development. It is built using **Laravel 11**, the latest version, to leverage the most recent features and improvements.
 
