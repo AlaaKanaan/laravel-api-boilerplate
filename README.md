@@ -28,7 +28,7 @@ Out-of-the-box, it includes **REST API authentication** powered by **Laravel San
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/laravel-boilerplate-api.git
+   git clone https://github.com/AlaaKanaan/laravel-boilerplate-api.git
    cd laravel-boilerplate-api
    ```
 
