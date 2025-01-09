@@ -7,17 +7,12 @@ Out-of-the-box, it includes **REST API authentication** powered by **Laravel San
 ## Features
 
 - **RESTful API**: Structured and clean RESTful API endpoints.
+- **API Versioning**: Structure API with versioning (e.g., `/api/v1`).
 - **Authentication**: Token-based authentication using **Laravel Sanctum**.
 - **User Management**: Pre-built endpoints for user registration, login, logout, and password reset.
 - **MySQL Integration**: Ready-to-use MySQL database schema for seamless integration.
-- **CORS Support**: Configured for cross-origin resource sharing to support SPAs and mobile apps.
-- **Mobile App Compatibility**: Designed to work with mobile apps (iOS, Android) for seamless integration.
-- **Third-Party Integration**: Easily connect with third-party services or systems.
 - **Error Handling**: Centralized error handling for consistent API responses.
-- **API Documentation**: Auto-generated API documentation using **Swagger/OpenAPI**.
-- **Rate Limiting**: Configurable API rate limiting to protect your application.
-- **Environment Configuration**: `.env` file support for secure and easy configuration.
-- **Modular Codebase**: Clean and modular structure to easily extend and maintain.
+- **Localization**: Multilingual support for error messages and responses.
 
 
 ## Tech Stack
@@ -29,8 +24,6 @@ Nothing is included in this framework unless it has been thoroughly tested and p
 | Laravel                  | Framework | v11.36.1 | The best cross-platform framework                              |
 | JSONAPI                  | Package   | v5.0.2   | Feature-rich JSON:API compliant APIs for Laravel applications. |
 | Laravel Media Library    | Package   | v11.11   | package can associate all sorts of files with Eloquent models  |
-| OTP Generator & Verifier | Package   | v8.0     | tool to create OTP with an expiry without using any Database   |
-
 
 ## Installation
 
@@ -65,16 +58,6 @@ Nothing is included in this framework unless it has been thoroughly tested and p
    php artisan serve
    ```
 
-## Usage
-
-### Authentication Endpoints
-
-- **Register**: `POST /api/register`
-- **Login**: `POST /api/login`
-- **Logout**: `POST /api/logout`
-- **User Info**: `GET /api/user`
-- **Password Reset**: `POST /api/password/reset`
-
 ## Use Cases
 
 - **Single Page Applications (SPAs)**: A seamless backend for SPAs built with frameworks like Vue.js, React.js, or Angular.
@@ -93,10 +76,8 @@ Consider adding the following features to expand the boilerplate's functionality
 5. **WebSocket Support**: Add real-time functionality using **Laravel WebSockets**.
 6. **Localization**: Multilingual support for error messages and responses.
 7. **Audit Logs**: Log user activities and API usage.
-8. **API Versioning**: Structure API with versioning (e.g., `/api/v1`).
-9. **Notifications**: Pre-built email and push notification endpoints.
-10. **Rate Limiting by User Role**: Customize rate limiting rules for different user roles.
-11. **API Metrics Dashboard**: Build a simple dashboard to monitor API usage and performance.
+8. **Rate Limiting by User Role**: Customize rate limiting rules for different user roles.
+9. **API Metrics Dashboard**: Build a simple dashboard to monitor API usage and performance.
 
 ## API Documentation
 
