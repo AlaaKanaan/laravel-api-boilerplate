@@ -1,6 +1,6 @@
-# Laravel Standalone API
+# Laravel Boilerplate API
 
-Laravel Standalone API is a boilerplate designed for developers who want to kickstart projects using Laravel as a backend API. Whether you're building a Single Page Application (SPA), a mobile app, or integrating with third-party systems, this boilerplate provides a robust and scalable foundation.
+Laravel Boilerplate API is a boilerplate designed for developers who want to kickstart projects using Laravel as a backend API. Whether you're building a Single Page Application (SPA), a mobile app, or integrating with third-party systems, this boilerplate provides a robust and scalable foundation.
 
 Out-of-the-box, it includes **REST API authentication** powered by **Laravel Sanctum**, MySQL integration, and best practices for API development. It is built using **Laravel 11**, the latest version, to leverage the most recent features and improvements.
 
@@ -29,7 +29,7 @@ Nothing is included in this framework unless it has been thoroughly tested and p
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/laravel-standalone-api.git
+   git clone https://github.com/your-repo/laravel-boilerplate-api.git
    cd laravel-boilerplate-api
    ```
 
@@ -63,7 +63,7 @@ Nothing is included in this framework unless it has been thoroughly tested and p
 - **Single Page Applications (SPAs)**: A seamless backend for SPAs built with frameworks like Vue.js, React.js, or Angular.
 - **Mobile Apps**: Fully compatible with mobile app development using Flutter, React Native, Swift, or Kotlin.
 - **Third-Party Integration**: Easily expose APIs for other systems to consume.
-- **Microservices**: Use as a standalone service in a larger microservice architecture.
+- **Microservices**: Use as a boilerplate service in a larger microservice architecture.
 
 ## Roadmap and Additional Features (Suggestions)
 
