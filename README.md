@@ -30,7 +30,7 @@ Nothing is included in this framework unless it has been thoroughly tested and p
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-repo/laravel-standalone-api.git
-   cd laravel-standalone-api
+   cd laravel-boilerplate-api
    ```
 
 2. Install dependencies:

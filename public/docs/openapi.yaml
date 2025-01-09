@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'https://laravel-boilerplate-api.test'
+paths:
+  /api/v1/auth/sign-up:
+    post:
+      summary: 'Handle an incoming registration request.'
+      operationId: handleAnIncomingRegistrationRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: zad
+                  nullable: false
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: cherzog@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: nulla
+                  nullable: false
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/v1/auth/sign-in:
+    post:
+      summary: 'Handle an incoming authentication request.'
+      operationId: handleAnIncomingAuthenticationRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: geovanni84@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: 'C@F$2N/X,LX6$c6'
+                  nullable: false
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/auth/forgot-password:
+    post:
+      summary: 'Handle the request to store user information and send OTP notification.'
+      operationId: handleTheRequestToStoreUserInformationAndSendOTPNotification
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: edyth.kutch@example.net
+                  nullable: false
+              required:
+                - email
+      security: []
+  /api/v1/auth/reset-password:
+    post:
+      summary: 'Handles the password reset process for a user.'
+      operationId: handlesThePasswordResetProcessForAUser
+      description: "Validates the provided request data including OTP, email, and password.\nIt checks the cached OTP, updates the user's password if validation succeeds,\nand removes the OTP identifier value after completion."
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp:
+                  type: string
+                  description: ''
+                  example: ipsam
+                  nullable: false
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: mohammed.becker@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: corrupti
+                  nullable: false
+              required:
+                - otp
+                - email
+                - password
+      security: []
+  /api/v1/auth/sign-out:
+    post:
+      summary: 'Destroy an authenticated session.'
+      operationId: destroyAnAuthenticatedSession
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/auth/refresh-token:
+    post:
+      summary: 'Handle refresh token rotation.'
+      operationId: handleRefreshTokenRotation
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/users:
+    get:
+      summary: 'Fetch zero to many JSON API resources.'
+      operationId: fetchZeroToManyJSONAPIResources
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Create a new resource.'
+      operationId: createANewResource
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/v1/users/{id}':
+    get:
+      summary: 'Fetch zero to one JSON API resource by id.'
+      operationId: fetchZeroToOneJSONAPIResourceById
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    patch:
+      summary: 'Update an existing resource.'
+      operationId: updateAnExistingResource
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: 'Destroy a resource.'
+      operationId: destroyAResource
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the user.'
+        example: '06'
+        required: true
+        schema:
+          type: string
+  /api/v1/users/me:
+    get:
+      summary: 'get authenticated user'
+      operationId: getAuthenticatedUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''
