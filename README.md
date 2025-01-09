@@ -19,11 +19,12 @@ Out-of-the-box, it includes **REST API authentication** powered by **Laravel San
 
 Nothing is included in this framework unless it has been thoroughly tested and proven on real-world projects. Applications built with this framework come with well-considered, reliable technical decisions included right out of the box:
 
-| Library                  | Category  | Version  | Description                                                    |
-|--------------------------|-----------|----------|----------------------------------------------------------------|
-| Laravel                  | Framework | v11.36.1 | The best cross-platform framework                              |
-| JSONAPI                  | Package   | v5.0.2   | Feature-rich JSON:API compliant APIs for Laravel applications. |
-| Laravel Media Library    | Package   | v11.11   | package can associate all sorts of files with Eloquent models  |
+| Library               | Category  | Version  | Description                                                    |
+|-----------------------|-----------|----------|----------------------------------------------------------------|
+| Laravel               | Framework | v11.36.1 | The best cross-platform framework                              |
+| JSONAPI               | Package   | v5.0.2   | Feature-rich JSON:API compliant APIs for Laravel applications. |
+| Laravel Media Library | Package   | v11.11   | package can associate all sorts of files with Eloquent models  |
+| Scribe                | Package   | v4.38.0  | package to generate API documentation                          |
 
 ## Installation
 
@@ -81,9 +82,9 @@ Consider adding the following features to expand the boilerplate's functionality
 
 ## API Documentation
 
-This project includes auto-generated API documentation using **Swagger/OpenAPI**. Access the documentation at:
+This project includes auto-generated API documentation using **Scribe**. Access the documentation at:
 ```
-/api/docs
+/docs/index.html
 ```
 
 ## Contributing
